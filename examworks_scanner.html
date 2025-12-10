@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamWorks UK - Google Groups DRP Scanner</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 { color: #00d4ff; }
+        h2 { color: #ff6b6b; margin-top: 30px; }
+        .controls {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover { background: #00a8cc; }
+        .current {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .current a {
+            color: #00d4ff;
+            font-size: 18px;
+        }
+        a {
+            color: #00d4ff;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #0f3460;
+            border-radius: 5px;
+        }
+        a:hover { background: #1a4a7a; }
+        a.visited-link { 
+            background: #2d4a2d; 
+            color: #90EE90;
+        }
+        .counter {
+            font-size: 24px;
+            color: #00d4ff;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 ExamWorks UK - Google Groups DRP Scanner</h1>
+    
+    <div class="controls">
+        <button onclick="openNext()">▶️ SONRAKİNİ AÇ</button>
+        <button onclick="resetCounter()">🔄 SIFIRLA</button>
+        <span class="counter" id="counter">0 / 49</span>
+        <div class="current" id="currentLink">Başlamak için "SONRAKİNİ AÇ" butonuna tıkla veya Space/Enter bas</div>
+    </div>
+
+    <h2>📦 BRAND KEYWORDS (7)</h2>
+    <div id="brands">
+        <a href="https://groups.google.com/search?q=uk.co.premexservices&inOrg=false" target="_blank" data-name="uk.co.premexservices">uk.co.premexservices</a>
+        <a href="https://groups.google.com/search?q=premexservices&inOrg=false" target="_blank" data-name="premexservices">premexservices</a>
+        <a href="https://groups.google.com/search?q=uk.co.kindertons&inOrg=false" target="_blank" data-name="uk.co.kindertons">uk.co.kindertons</a>
+        <a href="https://groups.google.com/search?q=kindertons&inOrg=false" target="_blank" data-name="kindertons">kindertons</a>
+        <a href="https://groups.google.com/search?q=uk.co.examworks&inOrg=false" target="_blank" data-name="uk.co.examworks">uk.co.examworks</a>
+        <a href="https://groups.google.com/search?q=examworks&inOrg=false" target="_blank" data-name="examworks">examworks</a>
+        <a href="https://groups.google.com/search?q=examworks%20uk&inOrg=false" target="_blank" data-name="examworks uk">examworks uk</a>
+    </div>
+
+    <h2>👤 VIP ACCOUNTS (35)</h2>
+    <div id="vips">
+        <a href="https://groups.google.com/search?q=darren.halliwell%40premex.com&inOrg=false" target="_blank" data-name="darren.halliwell@premex.com">darren.halliwell@premex.com</a>
+        <a href="https://groups.google.com/search?q=beth.chippindale%40kindertons.co.uk&inOrg=false" target="_blank" data-name="beth.chippindale@kindertons.co.uk">beth.chippindale@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=martin.bilham%40sauto.co.uk&inOrg=false" target="_blank" data-name="martin.bilham@sauto.co.uk">martin.bilham@sauto.co.uk</a>
+        <a href="https://groups.google.com/search?q=steve.bilham%40sauto.co.uk&inOrg=false" target="_blank" data-name="steve.bilham@sauto.co.uk">steve.bilham@sauto.co.uk</a>
+        <a href="https://groups.google.com/search?q=amanda.williams%40kindertons.co.uk&inOrg=false" target="_blank" data-name="amanda.williams@kindertons.co.uk">amanda.williams@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=kathy.armitage%40kindertons.co.uk&inOrg=false" target="_blank" data-name="kathy.armitage@kindertons.co.uk">kathy.armitage@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=chris.latham%40kindertons.co.uk&inOrg=false" target="_blank" data-name="chris.latham@kindertons.co.uk">chris.latham@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=alistair.campbell%40kindertons.co.uk&inOrg=false" target="_blank" data-name="alistair.campbell@kindertons.co.uk">alistair.campbell@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=mark.russell%40kindertons.co.uk&inOrg=false" target="_blank" data-name="mark.russell@kindertons.co.uk">mark.russell@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=joanne.harman%40kindertons.co.uk&inOrg=false" target="_blank" data-name="joanne.harman@kindertons.co.uk">joanne.harman@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=christophe.leemanyan%40kindertons.co.uk&inOrg=false" target="_blank" data-name="christophe.leemanyan@kindertons.co.uk">christophe.leemanyan@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=alan.ballard%40ukindmed.com&inOrg=false" target="_blank" data-name="alan.ballard@ukindmed.com">alan.ballard@ukindmed.com</a>
+        <a href="https://groups.google.com/search?q=wayne.brannan%40premex.com&inOrg=false" target="_blank" data-name="wayne.brannan@premex.com">wayne.brannan@premex.com</a>
+        <a href="https://groups.google.com/search?q=tamsyn.haselden%40examworks.co.uk&inOrg=false" target="_blank" data-name="tamsyn.haselden@examworks.co.uk">tamsyn.haselden@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=phil.hardman%40examworks.co.uk&inOrg=false" target="_blank" data-name="phil.hardman@examworks.co.uk">phil.hardman@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=ian%40ukindmed.com&inOrg=false" target="_blank" data-name="ian@ukindmed.com">ian@ukindmed.com</a>
+        <a href="https://groups.google.com/search?q=helen.mangnall%40premex.com&inOrg=false" target="_blank" data-name="helen.mangnall@premex.com">helen.mangnall@premex.com</a>
+        <a href="https://groups.google.com/search?q=lisa.miller%40examworks.co.uk&inOrg=false" target="_blank" data-name="lisa.miller@examworks.co.uk">lisa.miller@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=maria.hardwidge%40premex.com&inOrg=false" target="_blank" data-name="maria.hardwidge@premex.com">maria.hardwidge@premex.com</a>
+        <a href="https://groups.google.com/search?q=doug.laver%40examworks.co.uk&inOrg=false" target="_blank" data-name="doug.laver@examworks.co.uk">doug.laver@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=mike.cutler%40examworks.co.uk&inOrg=false" target="_blank" data-name="mike.cutler@examworks.co.uk">mike.cutler@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=jordan.downing%40examworks.co.uk&inOrg=false" target="_blank" data-name="jordan.downing@examworks.co.uk">jordan.downing@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=robert.reid%40examworks.co.uk&inOrg=false" target="_blank" data-name="robert.reid@examworks.co.uk">robert.reid@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=rober.reid%40examworks.co.uk&inOrg=false" target="_blank" data-name="rober.reid@examworks.co.uk">rober.reid@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=steven.briscoe%40examworks.co.uk&inOrg=false" target="_blank" data-name="steven.briscoe@examworks.co.uk">steven.briscoe@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=annlomax%40hotmail.co.uk&inOrg=false" target="_blank" data-name="annlomax@hotmail.co.uk">annlomax@hotmail.co.uk</a>
+        <a href="https://groups.google.com/search?q=ann.lomax%40premex-insight.com&inOrg=false" target="_blank" data-name="ann.lomax@premex-insight.com">ann.lomax@premex-insight.com</a>
+        <a href="https://groups.google.com/search?q=caroline.russell%40premex.com&inOrg=false" target="_blank" data-name="caroline.russell@premex.com">caroline.russell@premex.com</a>
+        <a href="https://groups.google.com/search?q=joannaunsworth%40aol.com&inOrg=false" target="_blank" data-name="joannaunsworth@aol.com">joannaunsworth@aol.com</a>
+        <a href="https://groups.google.com/search?q=joanna-unsworth%40premex-insight.com&inOrg=false" target="_blank" data-name="joanna-unsworth@premex-insight.com">joanna-unsworth@premex-insight.com</a>
+        <a href="https://groups.google.com/search?q=john.walker%40premex.com&inOrg=false" target="_blank" data-name="john.walker@premex.com">john.walker@premex.com</a>
+        <a href="https://groups.google.com/search?q=laura.mercer%40premex.com&inOrg=false" target="_blank" data-name="laura.mercer@premex.com">laura.mercer@premex.com</a>
+        <a href="https://groups.google.com/search?q=mark.rimmer%40examworks-is.co.uk&inOrg=false" target="_blank" data-name="mark.rimmer@examworks-is.co.uk">mark.rimmer@examworks-is.co.uk</a>
+        <a href="https://groups.google.com/search?q=simon.margolis%40premex.com&inOrg=false" target="_blank" data-name="simon.margolis@premex.com">simon.margolis@premex.com</a>
+        <a href="https://groups.google.com/search?q=vicki.wooff%40premex.com&inOrg=false" target="_blank" data-name="vicki.wooff@premex.com">vicki.wooff@premex.com</a>
+    </div>
+
+    <h2>🌐 DOMAIN (7)</h2>
+    <div id="domains">
+        <a href="https://groups.google.com/search?q=%40examworks.co.uk&inOrg=false" target="_blank" data-name="@examworks.co.uk">@examworks.co.uk</a>
+        <a href="https://groups.google.com/search?q=%40premex.com&inOrg=false" target="_blank" data-name="@premex.com">@premex.com</a>
+        <a href="https://groups.google.com/search?q=%40kindertons.co.uk&inOrg=false" target="_blank" data-name="@kindertons.co.uk">@kindertons.co.uk</a>
+        <a href="https://groups.google.com/search?q=%40ukindmed.com&inOrg=false" target="_blank" data-name="@ukindmed.com">@ukindmed.com</a>
+        <a href="https://groups.google.com/search?q=%40premex-insight.com&inOrg=false" target="_blank" data-name="@premex-insight.com">@premex-insight.com</a>
+        <a href="https://groups.google.com/search?q=%40examworks-is.co.uk&inOrg=false" target="_blank" data-name="@examworks-is.co.uk">@examworks-is.co.uk</a>
+        <a href="https://groups.google.com/search?q=%40sauto.co.uk&inOrg=false" target="_blank" data-name="@sauto.co.uk">@sauto.co.uk</a>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const allLinks = document.querySelectorAll('a[target="_blank"]');
+        const total = allLinks.length;
+
+        function updateCounter() {
+            document.getElementById('counter').textContent = currentIndex + ' / ' + total;
+        }
+
+        function openNext() {
+            if (currentIndex < total) {
+                const link = allLinks[currentIndex];
+                link.classList.add('visited-link');
+                window.open(link.href, '_blank');
+                document.getElementById('currentLink').innerHTML = 
+                    '✅ Açıldı: <a href="' + link.href + '" target="_blank">' + link.dataset.name + '</a>';
+                currentIndex++;
+                updateCounter();
+            } else {
+                document.getElementById('currentLink').textContent = '🎉 Tamamlandı! Tüm linkler açıldı.';
+            }
+        }
+
+        function resetCounter() {
+            currentIndex = 0;
+            updateCounter();
+            allLinks.forEach(link => link.classList.remove('visited-link'));
+            document.getElementById('currentLink').textContent = 'Sıfırlandı. "SONRAKİNİ AÇ" butonuna tıkla veya Space/Enter bas';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                openNext();
+            }
+        });
+
+        updateCounter();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRP Scanner Pro v6 | Google Groups & Dorks</title>
+    <style>
+        :root {
+            --coral: #FF4562;
+            --coral-dark: #CC3750;
+            --coral-light: #FF9BB0;
+            --night: #1B1B3C;
+            --night-dark: #15152F;
+            --night-darkest: #0D0D1C;
+            --night-light: #54546F;
+            --night-lightest: #8D8DA2;
+            --white: #FFFFFF;
+            --success: #4ADE80;
+            --warning: #FBBF24;
+            --info: #3B82F6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--night-darkest);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--night-dark), var(--night));
+            padding: 20px 40px;
+            border-bottom: 3px solid var(--coral);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-icon {
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--coral);
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: var(--night-lightest);
+        }
+
+        .version {
+            font-size: 12px;
+            color: var(--night-lightest);
+            padding: 5px 12px;
+            border: 1px solid var(--night-light);
+            border-radius: 5px;
+        }
+
+        .main {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .card {
+            background: var(--night);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--night-light);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--night-light);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .card-sub {
+            font-size: 12px;
+            color: var(--night-lightest);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 6px;
+            color: var(--coral-light);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 12px 14px;
+            background: var(--night-dark);
+            border: 2px solid var(--night-light);
+            color: var(--white);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border 0.2s;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--coral);
+        }
+
+        textarea {
+            min-height: 180px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        ::placeholder {
+            color: var(--night-lightest);
+        }
+
+        .btn {
+            padding: 11px 22px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coral), var(--coral-dark));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 69, 98, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #22C55E);
+            color: var(--night-darkest);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--info), #2563EB);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--night-light);
+            color: var(--white);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--coral);
+            color: var(--coral);
+        }
+
+        .btn-outline:hover {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: var(--night-dark);
+            border: 2px solid var(--night-light);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--night-lightest);
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            border-color: var(--coral);
+            color: var(--white);
+            background: var(--night);
+        }
+
+        .tab:hover:not(.active) {
+            border-color: var(--night-lightest);
+            color: var(--white);
+        }
+
+        .checkbox-section {
+            margin-top: 16px;
+            padding: 16px;
+            background: var(--night-dark);
+            border-radius: 8px;
+        }
+
+        .checkbox-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .checkbox-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: var(--night-light);
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider:before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked+.toggle-slider {
+            background: var(--coral);
+        }
+
+        .toggle-switch input:checked+.toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 6px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: var(--night);
+        }
+
+        .checkbox-item input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--coral);
+            cursor: pointer;
+        }
+
+        .checkbox-item span {
+            font-size: 13px;
+            color: var(--night-lightest);
+        }
+
+        .checkbox-item:hover span {
+            color: var(--white);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat {
+            background: var(--night-dark);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--night-light);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--night-lightest);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .scanner {
+            display: none;
+        }
+
+        .scanner.active {
+            display: block;
+        }
+
+        .controls {
+            background: linear-gradient(135deg, var(--night), var(--night-dark));
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--coral);
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+        }
+
+        .controls-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .controls-btns {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .counter-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .counter {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--coral);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress {
+            width: 160px;
+            height: 8px;
+            background: var(--night-dark);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--coral), var(--coral-light));
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .speed-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: var(--night-dark);
+            border-radius: 6px;
+        }
+
+        .speed-area span {
+            font-size: 12px;
+            color: var(--night-lightest);
+        }
+
+        .speed-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 5px;
+            background: var(--night-light);
+            border-radius: 3px;
+        }
+
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--coral);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .speed-val {
+            color: var(--coral);
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .current-link {
+            margin-top: 14px;
+            padding: 12px 14px;
+            background: var(--night-dark);
+            border-radius: 6px;
+            border-left: 3px solid var(--coral);
+            font-size: 13px;
+            color: var(--night-lightest);
+        }
+
+        .current-link a {
+            color: var(--coral-light);
+            text-decoration: none;
+        }
+
+        .current-link a:hover {
+            color: var(--coral);
+            text-decoration: underline;
+        }
+
+        .current-link strong {
+            color: var(--white);
+        }
+
+        .search-mode-indicator {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .mode-badge {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mode-badge.groups {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--info);
+            border: 1px solid var(--info);
+        }
+
+        .mode-badge.dorks {
+            background: rgba(255, 69, 98, 0.2);
+            color: var(--coral);
+            border: 1px solid var(--coral);
+        }
+
+        .link-section {
+            margin-top: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--night);
+            border-radius: 8px 8px 0 0;
+            border: 1px solid var(--night-light);
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-count {
+            background: var(--coral);
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .link-list {
+            max-height: 280px;
+            overflow-y: auto;
+            background: var(--night-dark);
+            border: 1px solid var(--night-light);
+            border-radius: 0 0 8px 8px;
+            padding: 6px;
+        }
+
+        .link-list a {
+            display: block;
+            padding: 10px 12px;
+            margin: 3px 0;
+            background: var(--night);
+            border-radius: 5px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .link-list a:hover {
+            background: var(--night-light);
+            border-left-color: var(--coral);
+            padding-left: 16px;
+        }
+
+        .link-list a.visited {
+            background: rgba(74, 222, 128, 0.08);
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: var(--night-lightest);
+            font-size: 13px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--night-dark);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--night-light);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--coral);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .main {
+                padding: 16px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <div>
+                <div class="logo-text">DRP <span>Scanner Pro</span></div>
+                <div class="logo-sub">Google Groups & Dorks Detection</div>
+            </div>
+        </div>
+        <div class="version">v6.0</div>
+    </header>
+
+    <div class="main">
+        <!-- Input Card -->
+        <div class="card" id="inputCard">
+            <div class="card-header">
+                <div class="card-icon">📝</div>
+                <div>
+                    <div class="card-title">Data Input</div>
+                    <div class="card-sub">Paste data from SOCRadar or enter manually</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group"><label>Company Name</label><input type="text" id="companyName"
+                        placeholder="e.g., Repsol, Sally Beauty..."></div>
+                <div class="form-group"><label>Company ID (Optional)</label><input type="text" id="companyId"
+                        placeholder="e.g., 45512"></div>
+            </div>
+
+            <div class="form-group full">
+                <label>Raw Data</label>
+                <textarea id="rawData" placeholder="Paste Brand Keyword, VIP Account, Company Name data from SOCRadar...
+
+Example format:
+repsol
+Brand Keyword
+ceo@repsol.com
+VIP Account"></textarea>
+            </div>
+
+            <!-- Search Mode Selection -->
+            <div class="card-header"
+                style="margin-top:20px; padding-top:20px; border-top:1px solid var(--night-light); border-bottom:none; padding-bottom:0;">
+                <div class="card-icon">🔍</div>
+                <div>
+                    <div class="card-title">Search Mode</div>
+                    <div class="card-sub">Choose how to search for each asset</div>
+                </div>
+            </div>
+
+            <div class="tabs" style="margin-top:16px;">
+                <div class="tab active" data-mode="groups" onclick="setSearchMode('groups')">🔵 Google Groups Direct
+                </div>
+                <div class="tab" data-mode="dorks" onclick="setSearchMode('dorks')">🔴 Google Dorks</div>
+                <div class="tab" data-mode="both" onclick="setSearchMode('both')">🟣 Both</div>
+            </div>
+
+            <!-- Sensitive Keywords Section -->
+            <div class="checkbox-section">
+                <div class="checkbox-header">
+                    <label style="margin:0;">🔐 Sensitive Keyword Combinations</label>
+                    <div class="checkbox-toggle">
+                        <span style="font-size:12px; color:var(--night-lightest);">Enable</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="enableSensitive" onchange="toggleSensitive()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div id="sensitiveOptions" class="hidden">
+                    <p style="font-size:12px; color:var(--night-lightest); margin:10px 0 14px;">Select which sensitive
+                        keywords to combine with your assets:</p>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox" id="kw_password"
+                                checked><span>password</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_credential"
+                                checked><span>credential</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_login"><span>login</span></label>
+                        <label class="checkbox-item"><input type="checkbox"
+                                id="kw_internal"><span>internal</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_vpn"><span>vpn</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_token"><span>token</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_api_key"><span>api_key</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_secret"><span>secret</span></label>
+                        <label class="checkbox-item"><input type="checkbox"
+                                id="kw_confidential"><span>confidential</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_private"><span>private</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_admin"><span>admin</span></label>
+                        <label class="checkbox-item"><input type="checkbox" id="kw_ssh"><span>ssh</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="parseData()">🚀 Parse & Create Scanner</button>
+                <button class="btn btn-secondary" onclick="clearAll()">🗑️ Clear</button>
+            </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card hidden" id="statsCard">
+            <div class="card-header">
+                <div class="card-icon">📊</div>
+                <div>
+                    <div class="card-title">Statistics</div>
+                    <div class="card-sub" id="companyNameDisplay">-</div>
+                </div>
+            </div>
+
+            <div class="search-mode-indicator" id="searchModeIndicator"></div>
+
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="stat-label">Company</div>
+                    <div class="stat-value" id="statCompany">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Brand KW</div>
+                    <div class="stat-value" id="statBrand">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">VIP</div>
+                    <div class="stat-value" id="statVip">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Domain</div>
+                    <div class="stat-value" id="statDomain">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Sensitive</div>
+                    <div class="stat-value" id="statSensitive">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Total</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="startScanner()">▶️ Start Scanner</button>
+                <button class="btn btn-outline" onclick="downloadHTML()">💾 Download HTML</button>
+                <button class="btn btn-outline" onclick="downloadTXT()">📄 Download TXT</button>
+            </div>
+        </div>
+
+        <!-- Scanner Section -->
+        <div class="scanner" id="scannerSection">
+            <div class="controls">
+                <div class="controls-header">
+                    <div class="controls-btns">
+                        <button class="btn btn-primary" onclick="openNext()">▶️ Next</button>
+                        <button class="btn btn-success" onclick="openAllSlow()">🐢 Slow</button>
+                        <button class="btn btn-info" onclick="openAllFast()">⚡ Fast</button>
+                        <button class="btn btn-secondary" onclick="stopAutoOpen()">⏹️ Stop</button>
+                        <button class="btn btn-secondary" onclick="resetScanner()">🔄 Reset</button>
+                    </div>
+                    <div class="counter-area">
+                        <span class="counter" id="counter">0 / 0</span>
+                        <div class="progress">
+                            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="speed-area">
+                    <span>⏱️ Speed:</span>
+                    <input type="range" class="speed-slider" id="speedSlider" min="500" max="5000" value="2000"
+                        oninput="updateSpeed()">
+                    <span class="speed-val" id="speedVal">2.0s</span>
+                </div>
+                <div class="current-link" id="currentLink">Press <strong>Next</strong> or <strong>Space/Enter</strong>
+                    to start</div>
+            </div>
+
+            <!-- Google Groups Links -->
+            <div id="groupsSection">
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔵 Company Name (Groups)</div><span class="section-count"
+                            id="companyGroupsCount">0</span>
+                    </div>
+                    <div class="link-list" id="companyGroupsLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔵 Brand Keywords (Groups)</div><span class="section-count"
+                            id="brandGroupsCount">0</span>
+                    </div>
+                    <div class="link-list" id="brandGroupsLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔵 VIP Accounts (Groups)</div><span class="section-count"
+                            id="vipGroupsCount">0</span>
+                    </div>
+                    <div class="link-list" id="vipGroupsLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔵 Domains (Groups)</div><span class="section-count"
+                            id="domainGroupsCount">0</span>
+                    </div>
+                    <div class="link-list" id="domainGroupsLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Dorks Links -->
+            <div id="dorksSection">
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔴 Company Name (Dorks)</div><span class="section-count"
+                            id="companyDorksCount">0</span>
+                    </div>
+                    <div class="link-list" id="companyDorksLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔴 Brand Keywords (Dorks)</div><span class="section-count"
+                            id="brandDorksCount">0</span>
+                    </div>
+                    <div class="link-list" id="brandDorksLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔴 VIP Accounts (Dorks)</div><span class="section-count"
+                            id="vipDorksCount">0</span>
+                    </div>
+                    <div class="link-list" id="vipDorksLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔴 Domains (Dorks)</div><span class="section-count"
+                            id="domainDorksCount">0</span>
+                    </div>
+                    <div class="link-list" id="domainDorksLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensitive Combinations -->
+            <div id="sensitiveSection" class="hidden">
+                <div class="link-section">
+                    <div class="section-header">
+                        <div class="section-title">🔐 Sensitive Combinations</div><span class="section-count"
+                            id="sensitiveCount">0</span>
+                    </div>
+                    <div class="link-list" id="sensitiveLinks">
+                        <div class="empty">No data</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let data = { companyNames: [], brandKeywords: [], vipAccounts: [], domains: [], sensitiveKeywords: [], displayName: '' };
+        let searchMode = 'groups';
+        let allLinks = [], currentIndex = 0, autoInterval = null, isAuto = false;
+
+        function setSearchMode(mode) {
+            searchMode = mode;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab[data-mode="${mode}"]`).classList.add('active');
+        }
+
+        function toggleSensitive() {
+            const enabled = document.getElementById('enableSensitive').checked;
+            document.getElementById('sensitiveOptions').classList.toggle('hidden', !enabled);
+        }
+
+        function parseData() {
+            const raw = document.getElementById('rawData').value;
+            const companyName = document.getElementById('companyName').value || 'Company';
+
+            data = { companyNames: [], brandKeywords: [], vipAccounts: [], domains: new Set(), sensitiveKeywords: [], displayName: companyName };
+
+            const lines = raw.split('\n').map(l => l.trim()).filter(l => l);
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i], next = lines[i + 1] || '';
+                if (next.toLowerCase().includes('company name')) { data.companyNames.push(line); i++; }
+                else if (next.toLowerCase().includes('brand keyword') || next.toLowerCase().includes('keyword')) { data.brandKeywords.push(line); i++; }
+                else if (next.toLowerCase().includes('vip') || next.toLowerCase().includes('account')) {
+                    data.vipAccounts.push(line);
+                    const m = line.match(/@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+                    if (m) data.domains.add('@' + m[1]);
+                    i++;
+                }
+            }
+
+            data.companyNames = [...new Set(data.companyNames)];
+            data.brandKeywords = [...new Set(data.brandKeywords)];
+            data.vipAccounts = [...new Set(data.vipAccounts)];
+            data.domains = [...data.domains];
+
+            if (document.getElementById('enableSensitive').checked) generateSensitive();
+
+            showStats();
+        }
+
+        function generateSensitive() {
+            const kws = ['password', 'credential', 'login', 'internal', 'vpn', 'token', 'api_key', 'secret', 'confidential', 'private', 'admin', 'ssh'];
+            const selected = kws.filter(k => { const el = document.getElementById('kw_' + k); return el && el.checked; });
+            const mainKw = data.displayName.toLowerCase().replace(/\s+/g, '') || (data.brandKeywords[0] || '').toLowerCase();
+
+            if (mainKw) selected.forEach(s => data.sensitiveKeywords.push(`"${mainKw}" ${s}`));
+            data.domains.forEach(d => selected.forEach(s => data.sensitiveKeywords.push(`"${d}" ${s}`)));
+        }
+
+        function showStats() {
+            document.getElementById('statsCard').classList.remove('hidden');
+            document.getElementById('companyNameDisplay').textContent = data.displayName;
+            document.getElementById('statCompany').textContent = data.companyNames.length;
+            document.getElementById('statBrand').textContent = data.brandKeywords.length;
+            document.getElementById('statVip').textContent = data.vipAccounts.length;
+            document.getElementById('statDomain').textContent = data.domains.length;
+            document.getElementById('statSensitive').textContent = data.sensitiveKeywords.length;
+
+            const base = data.companyNames.length + data.brandKeywords.length + data.vipAccounts.length + data.domains.length;
+            let total = base * (searchMode === 'both' ? 2 : 1) + data.sensitiveKeywords.length;
+            document.getElementById('statTotal').textContent = total;
+
+            let indicator = '';
+            if (searchMode === 'groups' || searchMode === 'both') indicator += '<span class="mode-badge groups">🔵 Google Groups</span>';
+            if (searchMode === 'dorks' || searchMode === 'both') indicator += '<span class="mode-badge dorks">🔴 Google Dorks</span>';
+            document.getElementById('searchModeIndicator').innerHTML = indicator;
+        }
+
+        function startScanner() {
+            document.getElementById('scannerSection').classList.add('active');
+            document.getElementById('groupsSection').classList.toggle('hidden', searchMode === 'dorks');
+            document.getElementById('dorksSection').classList.toggle('hidden', searchMode === 'groups');
+            document.getElementById('sensitiveSection').classList.toggle('hidden', data.sensitiveKeywords.length === 0);
+            renderLinks();
+            document.getElementById('scannerSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderLinks() {
+            let idx = 0;
+            const groupsUrl = k => `https://groups.google.com/search?q=${encodeURIComponent(k)}&inOrg=false`;
+            const dorksUrl = k => `https://www.google.com/search?q=${encodeURIComponent('site:groups.google.com "' + k + '"')}`;
+
+            const render = (arr, groupsId, dorksId, groupsCountId, dorksCountId) => {
+                let gh = '', dh = '';
+                arr.forEach(v => {
+                    if (searchMode !== 'dorks') { gh += `<a href="${groupsUrl(v)}" target="_blank" data-idx="${idx}" data-name="${v}" onclick="markVisited(this)">${v}</a>`; idx++; }
+                    if (searchMode !== 'groups') { dh += `<a href="${dorksUrl(v)}" target="_blank" data-idx="${idx}" data-name="site:groups.google.com &quot;${v}&quot;" onclick="markVisited(this)">site:groups.google.com "${v}"</a>`; idx++; }
+                });
+                document.getElementById(groupsId).innerHTML = gh || '<div class="empty">No data</div>';
+                document.getElementById(dorksId).innerHTML = dh || '<div class="empty">No data</div>';
+                document.getElementById(groupsCountId).textContent = searchMode !== 'dorks' ? arr.length : 0;
+                document.getElementById(dorksCountId).textContent = searchMode !== 'groups' ? arr.length : 0;
+            };
+
+            render(data.companyNames, 'companyGroupsLinks', 'companyDorksLinks', 'companyGroupsCount', 'companyDorksCount');
+            render(data.brandKeywords, 'brandGroupsLinks', 'brandDorksLinks', 'brandGroupsCount', 'brandDorksCount');
+            render(data.vipAccounts, 'vipGroupsLinks', 'vipDorksLinks', 'vipGroupsCount', 'vipDorksCount');
+            render(data.domains, 'domainGroupsLinks', 'domainDorksLinks', 'domainGroupsCount', 'domainDorksCount');
+
+            // Sensitive
+            let sh = '';
+            data.sensitiveKeywords.forEach(c => {
+                const dork = `site:groups.google.com ${c}`;
+                sh += `<a href="https://www.google.com/search?q=${encodeURIComponent(dork)}" target="_blank" data-idx="${idx}" data-name="${dork}" onclick="markVisited(this)">${dork}</a>`;
+                idx++;
+            });
+            document.getElementById('sensitiveLinks').innerHTML = sh || '<div class="empty">No data</div>';
+            document.getElementById('sensitiveCount').textContent = data.sensitiveKeywords.length;
+
+            allLinks = document.querySelectorAll('#scannerSection .link-list a');
+            currentIndex = 0;
+            updateCounter();
+        }
+
+        function updateCounter() {
+            document.getElementById('counter').textContent = `${currentIndex} / ${allLinks.length}`;
+            document.getElementById('progressFill').style.width = allLinks.length ? `${(currentIndex / allLinks.length) * 100}%` : '0%';
+        }
+
+        function markVisited(el) { el.classList.add('visited'); }
+
+        function openNext() {
+            if (currentIndex < allLinks.length) {
+                const l = allLinks[currentIndex];
+                l.classList.add('visited');
+                window.open(l.href, '_blank');
+                document.getElementById('currentLink').innerHTML = `✅ <strong>[${currentIndex + 1}/${allLinks.length}]</strong> Opened: <a href="${l.href}" target="_blank">${l.dataset.name}</a>`;
+                currentIndex++;
+                updateCounter();
+                l.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return true;
+            } else {
+                document.getElementById('currentLink').innerHTML = '🎉 <strong>Complete!</strong> All links opened.';
+                stopAutoOpen();
+                return false;
+            }
+        }
+
+        function updateSpeed() { document.getElementById('speedVal').textContent = (document.getElementById('speedSlider').value / 1000).toFixed(1) + 's'; }
+        function openAllSlow() { if (isAuto) return; isAuto = true; autoInterval = setInterval(() => { if (!openNext()) stopAutoOpen(); }, parseInt(document.getElementById('speedSlider').value)); }
+        function openAllFast() { if (isAuto) return; const r = allLinks.length - currentIndex; if (r > 20 && !confirm(`Open ${r} tabs?`)) return; while (currentIndex < allLinks.length) { allLinks[currentIndex].classList.add('visited'); window.open(allLinks[currentIndex].href, '_blank'); currentIndex++; } updateCounter(); document.getElementById('currentLink').innerHTML = '🎉 <strong>Complete!</strong>'; }
+        function stopAutoOpen() { if (autoInterval) { clearInterval(autoInterval); autoInterval = null; } isAuto = false; }
+        function resetScanner() { stopAutoOpen(); currentIndex = 0; updateCounter(); allLinks.forEach(l => l.classList.remove('visited')); document.getElementById('currentLink').innerHTML = 'Reset. Press <strong>Next</strong> to continue.'; }
+        function clearAll() { document.getElementById('rawData').value = ''; document.getElementById('companyName').value = ''; document.getElementById('companyId').value = ''; document.getElementById('statsCard').classList.add('hidden'); document.getElementById('scannerSection').classList.remove('active'); }
+
+        function downloadHTML() { /* simplified for brevity */ alert('HTML download - implement based on v5'); }
+        function downloadTXT() {
+            let txt = `# ${data.displayName} - Google Groups Dorks\n# Generated: ${new Date().toISOString()}\n\n`;
+            txt += '# COMPANY NAME\n'; data.companyNames.forEach(n => txt += `site:groups.google.com "${n}"\n`);
+            txt += '\n# BRAND KEYWORDS\n'; data.brandKeywords.forEach(k => txt += `site:groups.google.com "${k}"\n`);
+            txt += '\n# VIP ACCOUNTS\n'; data.vipAccounts.forEach(e => txt += `site:groups.google.com "${e}"\n`);
+            txt += '\n# DOMAINS\n'; data.domains.forEach(d => txt += `site:groups.google.com "${d}"\n`);
+            if (data.sensitiveKeywords.length) { txt += '\n# SENSITIVE COMBINATIONS\n'; data.sensitiveKeywords.forEach(c => txt += `site:groups.google.com ${c}\n`); }
+            const blob = new Blob([txt], { type: 'text/plain' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${data.displayName.toLowerCase().replace(/\s+/g, '_')}_dorks.txt`; a.click();
+        }
+
+        document.addEventListener('keydown', e => { if ((e.code === 'Space' || e.code === 'Enter') && !['TEXTAREA', 'INPUT'].includes(document.activeElement.tagName)) { e.preventDefault(); openNext(); } });
+        updateSpeed();
+    </script>
+</body>
+
+</html>

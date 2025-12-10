@@ -1,0 +1,87 @@
+# ============================================
+# EXAMWORKS UK - GOOGLE GROUPS DORK LİSTESİ
+# ============================================
+# Kullanım: Her satırı Google'a yapıştır
+# ============================================
+
+
+# ============================================
+# BRAND KEYWORDS
+# ============================================
+
+site:groups.google.com "uk.co.premexservices"
+site:groups.google.com "premexservices"
+site:groups.google.com "uk.co.kindertons"
+site:groups.google.com "kindertons"
+site:groups.google.com "uk.co.examworks"
+site:groups.google.com "examworks"
+site:groups.google.com "examworks uk"
+
+
+# ============================================
+# VIP ACCOUNTS - EMAIL ADDRESSES
+# ============================================
+
+site:groups.google.com "darren.halliwell@premex.com"
+site:groups.google.com "beth.chippindale@kindertons.co.uk"
+site:groups.google.com "martin.bilham@sauto.co.uk"
+site:groups.google.com "steve.bilham@sauto.co.uk"
+site:groups.google.com "amanda.williams@kindertons.co.uk"
+site:groups.google.com "kathy.armitage@kindertons.co.uk"
+site:groups.google.com "chris.latham@kindertons.co.uk"
+site:groups.google.com "alistair.campbell@kindertons.co.uk"
+site:groups.google.com "mark.russell@kindertons.co.uk"
+site:groups.google.com "joanne.harman@kindertons.co.uk"
+site:groups.google.com "christophe.leemanyan@kindertons.co.uk"
+site:groups.google.com "alan.ballard@ukindmed.com"
+site:groups.google.com "wayne.brannan@premex.com"
+site:groups.google.com "tamsyn.haselden@examworks.co.uk"
+site:groups.google.com "phil.hardman@examworks.co.uk"
+site:groups.google.com "ian@ukindmed.com"
+site:groups.google.com "helen.mangnall@premex.com"
+site:groups.google.com "lisa.miller@examworks.co.uk"
+site:groups.google.com "maria.hardwidge@premex.com"
+site:groups.google.com "doug.laver@examworks.co.uk"
+site:groups.google.com "mike.cutler@examworks.co.uk"
+site:groups.google.com "jordan.downing@examworks.co.uk"
+site:groups.google.com "robert.reid@examworks.co.uk"
+site:groups.google.com "rober.reid@examworks.co.uk"
+site:groups.google.com "steven.briscoe@examworks.co.uk"
+site:groups.google.com "annlomax@hotmail.co.uk"
+site:groups.google.com "ann.lomax@premex-insight.com"
+site:groups.google.com "caroline.russell@premex.com"
+site:groups.google.com "joannaunsworth@aol.com"
+site:groups.google.com "joanna-unsworth@premex-insight.com"
+site:groups.google.com "john.walker@premex.com"
+site:groups.google.com "laura.mercer@premex.com"
+site:groups.google.com "mark.rimmer@examworks-is.co.uk"
+site:groups.google.com "simon.margolis@premex.com"
+site:groups.google.com "vicki.wooff@premex.com"
+
+
+# ============================================
+# DOMAIN GENEL ARAMA
+# ============================================
+
+site:groups.google.com "@examworks.co.uk"
+site:groups.google.com "@premex.com"
+site:groups.google.com "@kindertons.co.uk"
+site:groups.google.com "@ukindmed.com"
+site:groups.google.com "@premex-insight.com"
+site:groups.google.com "@examworks-is.co.uk"
+site:groups.google.com "@sauto.co.uk"
+
+
+# ============================================
+# HASSAS KEYWORD KOMBİNASYONLARI
+# ============================================
+
+site:groups.google.com "examworks" password
+site:groups.google.com "examworks" credential
+site:groups.google.com "examworks" internal
+site:groups.google.com "premex" password
+site:groups.google.com "premex" internal
+site:groups.google.com "kindertons" password
+site:groups.google.com "kindertons" internal
+site:groups.google.com "@examworks.co.uk" password
+site:groups.google.com "@premex.com" credential

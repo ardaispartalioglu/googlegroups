@@ -1,0 +1,79 @@
+# ============================================
+# CIRCOR - GOOGLE GROUPS DORK LİSTESİ
+# ============================================
+# Kullanım: Her satırı Google'a yapıştır
+# ============================================
+
+
+# ============================================
+# BRAND KEYWORDS
+# ============================================
+
+site:groups.google.com "swelore"
+site:groups.google.com "hironisha"
+site:groups.google.com "circoraerospace"
+site:groups.google.com "tushacopumps"
+site:groups.google.com "rtk-controls"
+site:groups.google.com "lesliecontrols"
+site:groups.google.com "circortech"
+site:groups.google.com "pd-technik"
+site:groups.google.com "pipelineengineering"
+site:groups.google.com "halehamilton"
+site:groups.google.com "circorselect"
+site:groups.google.com "circleseal"
+site:groups.google.com "colfaxfluidhandling"
+site:groups.google.com "cfx-selector"
+site:groups.google.com "circorpt"
+site:groups.google.com "zenith pumps"
+site:groups.google.com "warren pumps"
+site:groups.google.com "tushaco pumps"
+site:groups.google.com "schroedahl"
+site:groups.google.com "regeltechnik"
+site:groups.google.com "r.g. laurence"
+site:groups.google.com "portland valve"
+site:groups.google.com "leslie controls"
+site:groups.google.com "imo ab pump"
+site:groups.google.com "imo pump"
+site:groups.google.com "houttuin"
+site:groups.google.com "hale hamilton"
+site:groups.google.com "circor motors"
+site:groups.google.com "circor industria"
+site:groups.google.com "circor bodet"
+site:groups.google.com "circle seal controls"
+site:groups.google.com "circor aerospace"
+site:groups.google.com "allweiler"
+site:groups.google.com "aerodyne controls"
+site:groups.google.com "zenithpumps"
+site:groups.google.com "shopcfh"
+site:groups.google.com "progressingcavity"
+site:groups.google.com "circor"
+
+
+# ============================================
+# VIP ACCOUNTS - EMAIL ADDRESSES
+# ============================================
+
+site:groups.google.com "aj.sharma@circor.com"
+site:groups.google.com "michael.nichols@circor.com"
+site:groups.google.com "krishna.kashyap@circor.com"
+site:groups.google.com "tony.najjar@circor.com"
+
+
+# ============================================
+# DOMAIN GENEL ARAMA
+# ============================================
+
+site:groups.google.com "@circor.com"
+
+
+# ============================================
+# HASSAS KEYWORD KOMBİNASYONLARI
+# ============================================
+
+site:groups.google.com "circor" password
+site:groups.google.com "circor" credential
+site:groups.google.com "circor" login
+site:groups.google.com "circor" internal
+site:groups.google.com "circor" vpn
+site:groups.google.com "@circor.com" password
+site:groups.google.com "@circor.com" credential

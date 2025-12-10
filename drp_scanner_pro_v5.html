@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRP Scanner Pro | SOCRadar Integration</title>
+    <style>
+        :root {
+            --coral-lightest: #FFD1DB;
+            --coral-light: #FF9BB0;
+            --coral: #FF4562;
+            --coral-dark: #CC3750;
+            --coral-darkest: #99293C;
+            --night-lightest: #8D8DA2;
+            --night-light: #54546F;
+            --night: #1B1B3C;
+            --night-dark: #15152F;
+            --night-darkest: #0D0D1C;
+            --white: #FFFFFF;
+            --success: #4ADE80;
+            --success-dark: #22C55E;
+            --warning: #FBBF24;
+            --error: #EF4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: var(--night-darkest);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--night-dark) 0%, var(--night) 100%);
+            padding: 20px 40px;
+            border-bottom: 3px solid var(--coral);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 15px rgba(255, 69, 98, 0.3);
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .logo-text span {
+            color: var(--coral);
+        }
+
+        .header-badge {
+            background: var(--coral);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: var(--night);
+            border-radius: 10px;
+            border: 2px solid var(--night-light);
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            border-color: var(--coral);
+            opacity: 1;
+        }
+
+        .step.completed {
+            border-color: var(--success);
+            opacity: 1;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--night-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .step.active .step-number {
+            background: var(--coral);
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+        }
+
+        .step-text {
+            font-size: 14px;
+            color: var(--night-lightest);
+        }
+
+        .step.active .step-text,
+        .step.completed .step-text {
+            color: var(--white);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--night);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--night-light);
+            margin-bottom: 25px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--night-light);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--night-lightest);
+        }
+
+        /* Form Elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: var(--coral-light);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            padding: 14px 16px;
+            background: var(--night-dark);
+            border: 2px solid var(--night-light);
+            color: var(--white);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--coral);
+            box-shadow: 0 0 0 3px rgba(255, 69, 98, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--night-lightest);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 69, 98, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--night-light);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--night-lightest);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+            color: var(--night-darkest);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--coral);
+            color: var(--coral);
+        }
+
+        .btn-outline:hover {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: var(--night-dark);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--night-light);
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--night-lightest);
+            margin-top: 5px;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 40px;
+            color: var(--coral-light);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--night-light);
+            border-top-color: var(--coral);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Alert */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert-success {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+        }
+
+        .alert-warning {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid var(--warning);
+            color: var(--warning);
+        }
+
+        /* Scanner Section */
+        .scanner-section {
+            display: none;
+        }
+
+        .scanner-section.active {
+            display: block;
+        }
+
+        .scanner-controls {
+            background: linear-gradient(135deg, var(--night) 0%, var(--night-dark) 100%);
+            padding: 25px;
+            border-radius: 16px;
+            border: 2px solid var(--coral);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        .scanner-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .scanner-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .counter-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .counter {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--coral);
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 10px;
+            background: var(--night-dark);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--coral) 0%, var(--coral-light) 100%);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        .current-link-display {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--night-dark);
+            border-radius: 10px;
+            border-left: 4px solid var(--coral);
+            font-size: 14px;
+        }
+
+        .current-link-display a {
+            color: var(--coral-light);
+            text-decoration: none;
+        }
+
+        .current-link-display a:hover {
+            color: var(--coral);
+            text-decoration: underline;
+        }
+
+        /* Speed Control */
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            padding: 12px 15px;
+            background: var(--night-dark);
+            border-radius: 8px;
+        }
+
+        .speed-control label {
+            margin: 0;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .speed-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: var(--night-light);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--coral);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(255, 69, 98, 0.4);
+        }
+
+        .speed-value {
+            color: var(--coral);
+            font-weight: 600;
+            min-width: 50px;
+        }
+
+        /* Link Sections */
+        .link-section {
+            margin-top: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: var(--night);
+            border-radius: 12px 12px 0 0;
+            border: 1px solid var(--night-light);
+            border-bottom: none;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .section-count {
+            background: var(--coral);
+            color: var(--white);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .link-list {
+            max-height: 350px;
+            overflow-y: auto;
+            background: var(--night-dark);
+            border: 1px solid var(--night-light);
+            border-radius: 0 0 12px 12px;
+            padding: 10px;
+        }
+
+        .link-list a {
+            display: block;
+            padding: 12px 15px;
+            margin: 5px 0;
+            background: var(--night);
+            border-radius: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .link-list a:hover {
+            background: var(--night-light);
+            border-left-color: var(--coral);
+            transform: translateX(5px);
+        }
+
+        .link-list a.visited {
+            background: rgba(74, 222, 128, 0.1);
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--night-lightest);
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* Company Select */
+        .company-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--night-dark);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .company-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            margin: 5px 0;
+            background: var(--night);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .company-item:hover {
+            border-color: var(--coral);
+        }
+
+        .company-item.selected {
+            border-color: var(--success);
+            background: rgba(74, 222, 128, 0.1);
+        }
+
+        .company-name {
+            font-weight: 600;
+        }
+
+        .company-id {
+            color: var(--night-lightest);
+            font-size: 12px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--night-dark);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--night-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--coral);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .main-container {
+                padding: 15px;
+            }
+
+            .scanner-header {
+                flex-direction: column;
+            }
+
+            .steps-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Checkbox grid for sensitive keywords */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            background: var(--night-dark);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--coral);
+            cursor: pointer;
+        }
+
+        .checkbox-item span {
+            font-size: 13px;
+            color: var(--night-lightest);
+        }
+
+        .checkbox-item:hover span {
+            color: var(--white);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <div>
+                <div class="logo-text">DRP <span>Scanner Pro</span></div>
+                <div style="color: var(--night-lightest); font-size: 13px;">Google Groups Leak Detection</div>
+            </div>
+        </div>
+        <div class="header-badge">SOCRadar API Integration</div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Steps -->
+        <div class="steps-container">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-text">API Bağlantısı</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-text">Asset'leri Çek</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-text">Tarama Yap</div>
+            </div>
+        </div>
+
+        <!-- Step 1: API Connection -->
+        <div class="card" id="apiCard">
+            <div class="card-header">
+                <div class="card-icon">🔑</div>
+                <div>
+                    <div class="card-title">SOCRadar API Bağlantısı</div>
+                    <div class="card-subtitle">API Key ve Company ID bilgilerini girin</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="password" id="apiKey" placeholder="API Key'inizi girin..."
+                        value="cd7f92376d044c03b074c91071b3c12a69b743f511ed4ddf8f88eb1d76694669">
+                </div>
+                <div class="form-group">
+                    <label>Company ID</label>
+                    <input type="text" id="companyId" placeholder="Örn: 45512" value="45512">
+                </div>
+                <div class="form-group">
+                    <label>Email (API için gerekli)</label>
+                    <input type="text" id="userEmail" placeholder="ornek@sirket.com">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>CORS Proxy URL (API için gerekli)</label>
+                <select id="corsProxy" style="width: 100%;">
+                    <option value="https://corsproxy.io/?">corsproxy.io (Önerilen)</option>
+                    <option value="https://api.allorigins.win/raw?url=">AllOrigins</option>
+                    <option value="https://cors-anywhere.herokuapp.com/">CORS Anywhere</option>
+                    <option value="">Proxy Kullanma (Sadece lokal test için)</option>
+                </select>
+            </div>
+
+            <div class="alert alert-warning">
+                <span>⚠️</span>
+                <span>Not: CORS politikası nedeniyle API doğrudan çağrılamayabilir. Bu durumda manuel veri girişi
+                    yapabilirsiniz.</span>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="fetchAssets()">🔄 Asset'leri Çek</button>
+                <button class="btn btn-outline" onclick="showManualInput()">📝 Manuel Giriş</button>
+            </div>
+
+            <div id="apiResult"></div>
+        </div>
+
+        <!-- Manual Input (Hidden by default) -->
+        <div class="card hidden" id="manualCard">
+            <div class="card-header">
+                <div class="card-icon">📝</div>
+                <div>
+                    <div class="card-title">Manuel Veri Girişi</div>
+                    <div class="card-subtitle">SOCRadar'dan kopyaladığınız veriyi yapıştırın</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Şirket Adı</label>
+                <input type="text" id="companyName" placeholder="Örn: Repsol, Sally Beauty...">
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Ham Veri (SOCRadar'dan Kopyala-Yapıştır)</label>
+                <textarea id="rawData"
+                    style="width: 100%; height: 200px; background: var(--night-dark); border: 2px solid var(--night-light); color: var(--white); padding: 15px; border-radius: 10px; font-family: monospace; font-size: 12px;"
+                    placeholder="Brand Keyword, VIP Account, Company Name verilerini buraya yapıştırın..."></textarea>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <label>🔐 Hassas Keyword Kombinasyonları</label>
+                <div class="checkbox-grid">
+                    <label class="checkbox-item"><input type="checkbox" id="kw_password"
+                            checked><span>password</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_credential"
+                            checked><span>credential</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_login" checked><span>login</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_internal"
+                            checked><span>internal</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_vpn" checked><span>vpn</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_token" checked><span>token</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_api_key"
+                            checked><span>api_key</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_secret"
+                            checked><span>secret</span></label>
+                    <label class="checkbox-item"><input type="checkbox"
+                            id="kw_confidential"><span>confidential</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_private"><span>private</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_admin"><span>admin</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="kw_ssh"><span>ssh</span></label>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="parseManualData()">🔄 Parse Et & Scanner Oluştur</button>
+                <button class="btn btn-secondary" onclick="hideManualInput()">← Geri</button>
+            </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card hidden" id="statsCard">
+            <div class="card-header">
+                <div class="card-icon">📊</div>
+                <div>
+                    <div class="card-title">Asset İstatistikleri</div>
+                    <div class="card-subtitle" id="companyNameDisplay">-</div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-value" id="statCompanyName">0</div>
+                    <div class="stat-label">Company Name</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-value" id="statBrandKeyword">0</div>
+                    <div class="stat-label">Brand Keyword</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👤</div>
+                    <div class="stat-value" id="statVipAccount">0</div>
+                    <div class="stat-label">VIP Account</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🌐</div>
+                    <div class="stat-value" id="statDomain">0</div>
+                    <div class="stat-label">Domain</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔐</div>
+                    <div class="stat-value" id="statSensitive">0</div>
+                    <div class="stat-label">Sensitive</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                    <div class="stat-label">Toplam Link</div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="startScanner()">▶️ Scanner'ı Başlat</button>
+                <button class="btn btn-outline" onclick="downloadHTML()">💾 HTML İndir</button>
+                <button class="btn btn-outline" onclick="downloadTXT()">📄 TXT İndir</button>
+            </div>
+        </div>
+
+        <!-- Scanner Section -->
+        <div class="scanner-section" id="scannerSection">
+            <div class="scanner-controls">
+                <div class="scanner-header">
+                    <div class="scanner-buttons">
+                        <button class="btn btn-primary" onclick="openNext()">▶️ Sonrakini Aç</button>
+                        <button class="btn btn-success" onclick="openAllSlow()">🐢 Yavaş Aç</button>
+                        <button class="btn btn-outline" onclick="openAllFast()">⚡ Hızlı Aç</button>
+                        <button class="btn btn-secondary" onclick="stopAutoOpen()">⏹️ Durdur</button>
+                        <button class="btn btn-secondary" onclick="resetScanner()">🔄 Sıfırla</button>
+                    </div>
+
+                    <div class="counter-display">
+                        <span class="counter" id="counter">0 / 0</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="speed-control">
+                    <label>🕐 Açma Hızı:</label>
+                    <input type="range" class="speed-slider" id="speedSlider" min="500" max="5000" value="2000"
+                        oninput="updateSpeedDisplay()">
+                    <span class="speed-value" id="speedValue">2.0s</span>
+                </div>
+
+                <div class="current-link-display" id="currentLink">
+                    💡 Başlamak için <strong>"Sonrakini Aç"</strong> butonuna tıkla veya <strong>Space/Enter</strong>
+                    bas
+                </div>
+            </div>
+
+            <!-- Company Name Links -->
+            <div class="link-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>🏢</span> Company Name
+                    </div>
+                    <span class="section-count" id="companyNameCount">0</span>
+                </div>
+                <div class="link-list" id="companyNameLinks">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>Veri yok
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Keywords Links -->
+            <div class="link-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>📦</span> Brand Keywords
+                    </div>
+                    <span class="section-count" id="brandKeywordCount">0</span>
+                </div>
+                <div class="link-list" id="brandKeywordLinks">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>Veri yok
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIP Account Links -->
+            <div class="link-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>👤</span> VIP Accounts
+                    </div>
+                    <span class="section-count" id="vipAccountCount">0</span>
+                </div>
+                <div class="link-list" id="vipAccountLinks">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>Veri yok
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domain Links -->
+            <div class="link-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>🌐</span> Domains
+                    </div>
+                    <span class="section-count" id="domainCount">0</span>
+                </div>
+                <div class="link-list" id="domainLinks">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>Veri yok
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sensitive Combinations -->
+            <div class="link-section">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span>🔐</span> Hassas Kombinasyonlar
+                    </div>
+                    <span class="section-count" id="sensitiveCount">0</span>
+                </div>
+                <div class="link-list" id="sensitiveLinks">
+                    <div class="empty-state">
+                        <div class="icon">📭</div>Veri yok
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global State
+        let parsedData = {
+            companyNames: [],
+            brandKeywords: [],
+            vipAccounts: [],
+            domains: [],
+            sensitiveKeywords: [],
+            companyDisplayName: ''
+        };
+
+        let allLinks = [];
+        let currentIndex = 0;
+        let autoOpenInterval = null;
+        let isAutoOpening = false;
+
+        // Step Management
+        function setStep(stepNum) {
+            document.querySelectorAll('.step').forEach((s, i) => {
+                s.classList.remove('active', 'completed');
+                if (i + 1 < stepNum) s.classList.add('completed');
+                if (i + 1 === stepNum) s.classList.add('active');
+            });
+        }
+
+        // Show/Hide Manual Input
+        function showManualInput() {
+            document.getElementById('manualCard').classList.remove('hidden');
+            document.getElementById('apiCard').classList.add('hidden');
+        }
+
+        function hideManualInput() {
+            document.getElementById('manualCard').classList.add('hidden');
+            document.getElementById('apiCard').classList.remove('hidden');
+        }
+
+        // Fetch Assets from API
+        async function fetchAssets() {
+            const apiKey = document.getElementById('apiKey').value;
+            const companyId = document.getElementById('companyId').value;
+            const email = document.getElementById('userEmail').value || 'test@socradar.com';
+            const corsProxy = document.getElementById('corsProxy').value;
+
+            if (!apiKey || !companyId) {
+                showAlert('apiResult', 'error', 'API Key ve Company ID gerekli!');
+                return;
+            }
+
+            document.getElementById('apiResult').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>Asset'ler çekiliyor... (CORS Proxy: ${corsProxy ? 'Aktif' : 'Kapalı'})</span>
+                </div>
+            `;
+
+            try {
+                // Build API URL
+                const baseUrl = 'https://platform.socradar.com/api';
+                const endpoint = `/company/${companyId}/drp-configuration/assets`;
+                const params = new URLSearchParams({
+                    assetType: 'main',
+                    email: email,
+                    sortBy: 'asset',
+                    limit: '500'
+                });
+
+                const apiUrl = `${baseUrl}${endpoint}?${params}`;
+                const fetchUrl = corsProxy ? `${corsProxy}${encodeURIComponent(apiUrl)}` : apiUrl;
+
+                console.log('Fetching from:', fetchUrl);
+
+                const response = await fetch(fetchUrl, {
+                    method: 'GET',
+                    headers: {
+                        'API-Key': apiKey,
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`HTTP ${response.status}: ${errorText.substring(0, 100)}`);
+                }
+
+                const data = await response.json();
+                console.log('API Response:', data);
+
+                // Handle different response structures
+                let assets = [];
+                if (data.success && data.data && data.data.assets) {
+                    assets = data.data.assets;
+                } else if (data.data && Array.isArray(data.data)) {
+                    assets = data.data;
+                } else if (Array.isArray(data)) {
+                    assets = data;
+                } else if (data.assets) {
+                    assets = data.assets;
+                }
+
+                if (assets.length > 0) {
+                    processApiData(assets);
+                    showAlert('apiResult', 'success', `✅ ${assets.length} asset başarıyla çekildi!`);
+                } else {
+                    throw new Error('API yanıtında asset bulunamadı. Lütfen Company ID ve API Key\'i kontrol edin.');
+                }
+
+            } catch (error) {
+                console.error('API Error:', error);
+
+                let errorMessage = error.message;
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    errorMessage = 'Network hatası veya CORS engeli. Farklı bir proxy deneyin.';
+                }
+
+                showAlert('apiResult', 'warning', `
+                    ⚠️ API bağlantısı başarısız: ${errorMessage}
+                    <br><br>
+                    <strong>Çözüm Önerileri:</strong>
+                    <ul style="margin: 10px 0; padding-left: 20px; text-align: left;">
+                        <li>Farklı bir CORS proxy seçin</li>
+                        <li>API Key ve Company ID'yi kontrol edin</li>
+                        <li>Manuel veri girişi yapın</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="showManualInput()" style="margin-top: 10px;">📝 Manuel Giriş Yap</button>
+                `);
+            }
+        }
+
+        // Process API Data
+        function processApiData(assets) {
+            parsedData = {
+                companyNames: [],
+                brandKeywords: [],
+                vipAccounts: [],
+                domains: new Set(),
+                sensitiveKeywords: [],
+                companyDisplayName: document.getElementById('companyId').value
+            };
+
+            assets.forEach(asset => {
+                const group = (asset.group || asset.assetGroup || '').toLowerCase();
+                const value = asset.asset || asset.assetName || asset.value;
+
+                if (!value) return;
+
+                // Company Name
+                if (group.includes('company') && group.includes('name')) {
+                    parsedData.companyNames.push(value);
+                    if (!parsedData.companyDisplayName || parsedData.companyDisplayName === document.getElementById('companyId').value) {
+                        parsedData.companyDisplayName = value;
+                    }
+                }
+                // Brand Keyword
+                else if (group.includes('brand') || group.includes('keyword')) {
+                    parsedData.brandKeywords.push(value);
+                }
+                // VIP Account / VIP Employee / Person / Executive
+                else if (group.includes('vip') || group.includes('person') || group.includes('executive') || group.includes('employee')) {
+                    parsedData.vipAccounts.push(value);
+                    // Extract domain from email
+                    const match = value.match(/@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+                    if (match) parsedData.domains.add('@' + match[1]);
+                }
+                // Domain
+                else if (group.includes('domain')) {
+                    if (value.includes('@')) {
+                        parsedData.domains.add(value);
+                    } else {
+                        parsedData.domains.add('@' + value);
+                    }
+                }
+            });
+
+            // Unique arrays
+            parsedData.companyNames = [...new Set(parsedData.companyNames)];
+            parsedData.brandKeywords = [...new Set(parsedData.brandKeywords)];
+            parsedData.vipAccounts = [...new Set(parsedData.vipAccounts)];
+            parsedData.domains = [...parsedData.domains];
+
+            generateSensitiveKeywords();
+            setStep(2);
+            showStats();
+        }
+
+        // Parse Manual Data
+        function parseManualData() {
+            const rawData = document.getElementById('rawData').value;
+            const companyName = document.getElementById('companyName').value || 'Company';
+
+            parsedData = {
+                companyNames: [],
+                brandKeywords: [],
+                vipAccounts: [],
+                domains: new Set(),
+                sensitiveKeywords: [],
+                companyDisplayName: companyName
+            };
+
+            const lines = rawData.split('\n').map(l => l.trim()).filter(l => l);
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const nextLine = lines[i + 1] || '';
+
+                if (nextLine === 'Company Name') {
+                    parsedData.companyNames.push(line);
+                    i++;
+                } else if (nextLine === 'Brand Keyword') {
+                    parsedData.brandKeywords.push(line);
+                    i++;
+                } else if (nextLine === 'VIP Account') {
+                    parsedData.vipAccounts.push(line);
+                    const match = line.match(/@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+                    if (match) parsedData.domains.add('@' + match[1]);
+                    i++;
+                }
+            }
+
+            // Unique
+            parsedData.companyNames = [...new Set(parsedData.companyNames)];
+            parsedData.brandKeywords = [...new Set(parsedData.brandKeywords)];
+            parsedData.vipAccounts = [...new Set(parsedData.vipAccounts)];
+            parsedData.domains = [...parsedData.domains];
+
+            generateSensitiveKeywords();
+
+            setStep(2);
+            document.getElementById('manualCard').classList.add('hidden');
+            showStats();
+        }
+
+        // Generate Sensitive Keywords
+        function generateSensitiveKeywords() {
+            const sensitiveKws = [];
+            const checkboxes = ['password', 'credential', 'login', 'internal', 'vpn', 'token', 'api_key', 'secret', 'confidential', 'private', 'admin', 'ssh'];
+
+            checkboxes.forEach(kw => {
+                const el = document.getElementById('kw_' + kw);
+                if (el && el.checked) sensitiveKws.push(kw);
+            });
+
+            // Main keyword (company name or first brand keyword)
+            const mainKeyword = parsedData.companyDisplayName.toLowerCase().replace(/\s+/g, '') ||
+                (parsedData.brandKeywords[0] || '').toLowerCase();
+
+            if (mainKeyword) {
+                sensitiveKws.forEach(skw => {
+                    parsedData.sensitiveKeywords.push(`"${mainKeyword}" ${skw}`);
+                });
+            }
+
+            // Domain combinations
+            parsedData.domains.forEach(domain => {
+                sensitiveKws.forEach(skw => {
+                    parsedData.sensitiveKeywords.push(`"${domain}" ${skw}`);
+                });
+            });
+        }
+
+        // Show Stats
+        function showStats() {
+            document.getElementById('statsCard').classList.remove('hidden');
+            document.getElementById('companyNameDisplay').textContent = parsedData.companyDisplayName;
+
+            document.getElementById('statCompanyName').textContent = parsedData.companyNames.length;
+            document.getElementById('statBrandKeyword').textContent = parsedData.brandKeywords.length;
+            document.getElementById('statVipAccount').textContent = parsedData.vipAccounts.length;
+            document.getElementById('statDomain').textContent = parsedData.domains.length;
+            document.getElementById('statSensitive').textContent = parsedData.sensitiveKeywords.length;
+
+            const total = parsedData.companyNames.length + parsedData.brandKeywords.length +
+                parsedData.vipAccounts.length + parsedData.domains.length +
+                parsedData.sensitiveKeywords.length;
+            document.getElementById('statTotal').textContent = total;
+        }
+
+        // Start Scanner
+        function startScanner() {
+            setStep(3);
+            document.getElementById('scannerSection').classList.add('active');
+            renderScanner();
+            document.getElementById('scannerSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Render Scanner
+        function renderScanner() {
+            let idx = 0;
+
+            // Company Names
+            document.getElementById('companyNameCount').textContent = parsedData.companyNames.length;
+            let companyHtml = '';
+            parsedData.companyNames.forEach(name => {
+                const url = `https://groups.google.com/search?q=${encodeURIComponent(name)}&inOrg=false`;
+                companyHtml += `<a href="${url}" target="_blank" data-index="${idx}" data-name="${name}" onclick="markVisited(this)">${name}</a>`;
+                idx++;
+            });
+            document.getElementById('companyNameLinks').innerHTML = companyHtml || '<div class="empty-state"><div class="icon">📭</div>Veri yok</div>';
+
+            // Brand Keywords
+            document.getElementById('brandKeywordCount').textContent = parsedData.brandKeywords.length;
+            let brandHtml = '';
+            parsedData.brandKeywords.forEach(kw => {
+                const url = `https://groups.google.com/search?q=${encodeURIComponent(kw)}&inOrg=false`;
+                brandHtml += `<a href="${url}" target="_blank" data-index="${idx}" data-name="${kw}" onclick="markVisited(this)">${kw}</a>`;
+                idx++;
+            });
+            document.getElementById('brandKeywordLinks').innerHTML = brandHtml || '<div class="empty-state"><div class="icon">📭</div>Veri yok</div>';
+
+            // VIP Accounts
+            document.getElementById('vipAccountCount').textContent = parsedData.vipAccounts.length;
+            let vipHtml = '';
+            parsedData.vipAccounts.forEach(email => {
+                const url = `https://groups.google.com/search?q=${encodeURIComponent(email)}&inOrg=false`;
+                vipHtml += `<a href="${url}" target="_blank" data-index="${idx}" data-name="${email}" onclick="markVisited(this)">${email}</a>`;
+                idx++;
+            });
+            document.getElementById('vipAccountLinks').innerHTML = vipHtml || '<div class="empty-state"><div class="icon">📭</div>Veri yok</div>';
+
+            // Domains
+            document.getElementById('domainCount').textContent = parsedData.domains.length;
+            let domainHtml = '';
+            parsedData.domains.forEach(domain => {
+                const url = `https://groups.google.com/search?q=${encodeURIComponent(domain)}&inOrg=false`;
+                domainHtml += `<a href="${url}" target="_blank" data-index="${idx}" data-name="${domain}" onclick="markVisited(this)">${domain}</a>`;
+                idx++;
+            });
+            document.getElementById('domainLinks').innerHTML = domainHtml || '<div class="empty-state"><div class="icon">📭</div>Veri yok</div>';
+
+            // Sensitive Keywords
+            document.getElementById('sensitiveCount').textContent = parsedData.sensitiveKeywords.length;
+            let sensitiveHtml = '';
+            parsedData.sensitiveKeywords.forEach(combo => {
+                const dork = `site:groups.google.com ${combo}`;
+                const url = `https://www.google.com/search?q=${encodeURIComponent(dork)}`;
+                sensitiveHtml += `<a href="${url}" target="_blank" data-index="${idx}" data-name="${dork}" onclick="markVisited(this)">${dork}</a>`;
+                idx++;
+            });
+            document.getElementById('sensitiveLinks').innerHTML = sensitiveHtml || '<div class="empty-state"><div class="icon">📭</div>Veri yok</div>';
+
+            allLinks = document.querySelectorAll('#scannerSection .link-list a');
+            currentIndex = 0;
+            updateCounter();
+        }
+
+        // Update Counter
+        function updateCounter() {
+            const total = allLinks.length;
+            document.getElementById('counter').textContent = `${currentIndex} / ${total}`;
+            const percent = total > 0 ? (currentIndex / total) * 100 : 0;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+
+        // Mark Visited
+        function markVisited(element) {
+            element.classList.add('visited');
+        }
+
+        // Open Next
+        function openNext() {
+            if (currentIndex < allLinks.length) {
+                const link = allLinks[currentIndex];
+                link.classList.add('visited');
+                window.open(link.href, '_blank');
+                document.getElementById('currentLink').innerHTML =
+                    `✅ <strong>[${currentIndex + 1}/${allLinks.length}]</strong> Açıldı: <a href="${link.href}" target="_blank">${link.dataset.name}</a>`;
+                currentIndex++;
+                updateCounter();
+                link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return true;
+            } else {
+                document.getElementById('currentLink').innerHTML = '🎉 <strong>Tamamlandı!</strong> Tüm linkler açıldı.';
+                stopAutoOpen();
+                return false;
+            }
+        }
+
+        // Speed Display
+        function updateSpeedDisplay() {
+            const speed = document.getElementById('speedSlider').value;
+            document.getElementById('speedValue').textContent = (speed / 1000).toFixed(1) + 's';
+        }
+
+        // Open All Slow
+        function openAllSlow() {
+            if (isAutoOpening) return;
+            isAutoOpening = true;
+            const speed = parseInt(document.getElementById('speedSlider').value);
+
+            document.getElementById('currentLink').innerHTML = '🐢 <strong>Yavaş mod aktif...</strong> Durdurmak için "Durdur" butonuna tıkla';
+
+            autoOpenInterval = setInterval(() => {
+                if (!openNext()) stopAutoOpen();
+            }, speed);
+        }
+
+        // Open All Fast
+        function openAllFast() {
+            if (isAutoOpening) return;
+
+            const remaining = allLinks.length - currentIndex;
+            if (remaining > 20) {
+                if (!confirm(`${remaining} sekme açılacak. Devam etmek istiyor musun?`)) return;
+            }
+
+            document.getElementById('currentLink').innerHTML = '⚡ <strong>Hızlı mod aktif...</strong>';
+
+            while (currentIndex < allLinks.length) {
+                allLinks[currentIndex].classList.add('visited');
+                window.open(allLinks[currentIndex].href, '_blank');
+                currentIndex++;
+            }
+            updateCounter();
+            document.getElementById('currentLink').innerHTML = '🎉 <strong>Tamamlandı!</strong> Tüm linkler açıldı.';
+        }
+
+        // Stop Auto Open
+        function stopAutoOpen() {
+            if (autoOpenInterval) {
+                clearInterval(autoOpenInterval);
+                autoOpenInterval = null;
+            }
+            isAutoOpening = false;
+            if (currentIndex < allLinks.length) {
+                document.getElementById('currentLink').innerHTML = '⏹️ <strong>Durduruldu.</strong> Devam etmek için tekrar başlat.';
+            }
+        }
+
+        // Reset Scanner
+        function resetScanner() {
+            stopAutoOpen();
+            currentIndex = 0;
+            updateCounter();
+            allLinks.forEach(link => link.classList.remove('visited'));
+            document.getElementById('currentLink').innerHTML = '💡 Sıfırlandı. Başlamak için <strong>"Sonrakini Aç"</strong> butonuna tıkla';
+        }
+
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', function (e) {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                if (document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    openNext();
+                }
+            }
+        });
+
+        // Show Alert
+        function showAlert(containerId, type, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+        }
+
+        // Download HTML
+        function downloadHTML() {
+            const companyName = parsedData.companyDisplayName || 'Company';
+            const total = parsedData.companyNames.length + parsedData.brandKeywords.length +
+                parsedData.vipAccounts.length + parsedData.domains.length +
+                parsedData.sensitiveKeywords.length;
+
+            let html = `<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>${companyName} - DRP Scanner</title>
+    <style>
+        :root{--coral:#FF4562;--coral-dark:#CC3750;--night:#1B1B3C;--night-dark:#15152F;--night-darkest:#0D0D1C;--night-light:#54546F;--white:#FFFFFF;--success:#4ADE80}
+        *{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',sans-serif;background:var(--night-darkest);color:var(--white);padding:20px}
+        .header{background:var(--night);padding:20px;border-radius:12px;border-left:4px solid var(--coral);margin-bottom:20px}
+        h1{color:var(--coral);font-size:24px}h2{color:var(--coral);margin:25px 0 15px;font-size:18px}
+        .controls{background:var(--night);padding:20px;border-radius:12px;position:sticky;top:10px;z-index:100;margin-bottom:20px;border:2px solid var(--coral)}
+        button{background:var(--coral);color:var(--white);border:none;padding:12px 24px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;margin-right:10px;margin-bottom:10px}
+        button:hover{background:var(--coral-dark)}.btn-secondary{background:var(--night-light)}
+        .counter{font-size:28px;color:var(--coral);font-weight:700;margin-left:15px}
+        .current{background:var(--night-dark);padding:15px;border-radius:8px;margin-top:15px;border-left:4px solid var(--coral)}.current a{color:var(--coral)}
+        .speed-control{display:flex;align-items:center;gap:10px;margin-top:15px;padding:10px;background:var(--night-dark);border-radius:8px}
+        .speed-slider{flex:1;height:6px;-webkit-appearance:none;background:var(--night-light);border-radius:3px}
+        .speed-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--coral);border-radius:50%;cursor:pointer}
+        a{color:var(--white);text-decoration:none;display:block;padding:12px 15px;margin:5px 0;background:var(--night);border-radius:8px;font-size:13px;border-left:3px solid transparent;transition:all 0.2s}
+        a:hover{background:var(--night-light);border-left-color:var(--coral)}a.visited-link{background:rgba(74,222,128,0.1);border-left-color:var(--success);color:var(--success)}
+    </style>
+</head>
+<body>
+    <div class="header"><h1>🛡️ ${companyName} - DRP Scanner</h1><p style="color:var(--night-light);margin-top:5px">Google Groups Leak Detection | Toplam: ${total} link</p></div>
+    <div class="controls">
+        <button onclick="openNext()">▶️ Sonrakini Aç</button>
+        <button onclick="openAllSlow()">🐢 Yavaş Aç</button>
+        <button onclick="openAllFast()">⚡ Hızlı Aç</button>
+        <button onclick="stopAutoOpen()" class="btn-secondary">⏹️ Durdur</button>
+        <button onclick="resetCounter()" class="btn-secondary">🔄 Sıfırla</button>
+        <span class="counter" id="counter">0 / ${total}</span>
+        <div class="speed-control"><span>🕐 Hız:</span><input type="range" class="speed-slider" id="speedSlider" min="500" max="5000" value="2000" oninput="document.getElementById('speedValue').textContent=(this.value/1000).toFixed(1)+'s'"><span id="speedValue">2.0s</span></div>
+        <div class="current" id="currentLink">Space/Enter ile başla</div>
+    </div>`;
+
+            // Company Names
+            html += `<h2>🏢 COMPANY NAME (${parsedData.companyNames.length})</h2><div>`;
+            parsedData.companyNames.forEach(name => {
+                html += `<a href="https://groups.google.com/search?q=${encodeURIComponent(name)}&inOrg=false" target="_blank" data-name="${name}">${name}</a>`;
+            });
+            html += `</div>`;
+
+            // Brand Keywords
+            html += `<h2>📦 BRAND KEYWORDS (${parsedData.brandKeywords.length})</h2><div>`;
+            parsedData.brandKeywords.forEach(kw => {
+                html += `<a href="https://groups.google.com/search?q=${encodeURIComponent(kw)}&inOrg=false" target="_blank" data-name="${kw}">${kw}</a>`;
+            });
+            html += `</div>`;
+
+            // VIP Accounts
+            html += `<h2>👤 VIP ACCOUNTS (${parsedData.vipAccounts.length})</h2><div>`;
+            parsedData.vipAccounts.forEach(email => {
+                html += `<a href="https://groups.google.com/search?q=${encodeURIComponent(email)}&inOrg=false" target="_blank" data-name="${email}">${email}</a>`;
+            });
+            html += `</div>`;
+
+            // Domains
+            html += `<h2>🌐 DOMAINS (${parsedData.domains.length})</h2><div>`;
+            parsedData.domains.forEach(domain => {
+                html += `<a href="https://groups.google.com/search?q=${encodeURIComponent(domain)}&inOrg=false" target="_blank" data-name="${domain}">${domain}</a>`;
+            });
+            html += `</div>`;
+
+            // Sensitive
+            html += `<h2>🔐 HASSAS KOMBİNASYONLAR (${parsedData.sensitiveKeywords.length})</h2><div>`;
+            parsedData.sensitiveKeywords.forEach(combo => {
+                const dork = `site:groups.google.com ${combo}`;
+                html += `<a href="https://www.google.com/search?q=${encodeURIComponent(dork)}" target="_blank" data-name="${dork}">${dork}</a>`;
+            });
+            html += `</div>`;
+
+            html += `<script>
+let ci=0,ai=null,io=false;const al=document.querySelectorAll('a[target="_blank"]'),tl=al.length;
+function uc(){document.getElementById('counter').textContent=ci+' / '+tl}
+function openNext(){if(ci<tl){const l=al[ci];l.classList.add('visited-link');window.open(l.href,'_blank');document.getElementById('currentLink').innerHTML='✅ ['+(ci+1)+'/'+tl+']: <a href="'+l.href+'" target="_blank">'+l.dataset.name+'</a>';ci++;uc();return true}else{document.getElementById('currentLink').textContent='🎉 Tamamlandı!';stopAutoOpen();return false}}
+function openAllSlow(){if(io)return;io=true;const sp=parseInt(document.getElementById('speedSlider').value);ai=setInterval(()=>{if(!openNext())stopAutoOpen()},sp)}
+function openAllFast(){if(io)return;while(ci<tl){al[ci].classList.add('visited-link');window.open(al[ci].href,'_blank');ci++}uc();document.getElementById('currentLink').textContent='🎉 Tamamlandı!'}
+function stopAutoOpen(){if(ai){clearInterval(ai);ai=null}io=false}
+function resetCounter(){stopAutoOpen();ci=0;uc();al.forEach(l=>l.classList.remove('visited-link'));document.getElementById('currentLink').textContent='Sıfırlandı.'}
+document.addEventListener('keydown',e=>{if((e.code==='Space'||e.code==='Enter')&&document.activeElement.tagName!=='INPUT'){e.preventDefault();openNext()}});uc();
+<\/script></body></html>`;
+
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${companyName.toLowerCase().replace(/\s+/g, '_')}_drp_scanner.html`;
+            a.click();
+        }
+
+        // Download TXT
+        function downloadTXT() {
+            const companyName = parsedData.companyDisplayName || 'Company';
+            let txt = `# ${companyName} - Google Groups Dorks\n# Generated: ${new Date().toISOString()}\n\n`;
+
+            txt += '# COMPANY NAME\n';
+            parsedData.companyNames.forEach(name => txt += `site:groups.google.com "${name}"\n`);
+
+            txt += '\n# BRAND KEYWORDS\n';
+            parsedData.brandKeywords.forEach(kw => txt += `site:groups.google.com "${kw}"\n`);
+
+            txt += '\n# VIP ACCOUNTS\n';
+            parsedData.vipAccounts.forEach(email => txt += `site:groups.google.com "${email}"\n`);
+
+            txt += '\n# DOMAINS\n';
+            parsedData.domains.forEach(domain => txt += `site:groups.google.com "${domain}"\n`);
+
+            txt += '\n# HASSAS KOMBİNASYONLAR\n';
+            parsedData.sensitiveKeywords.forEach(combo => txt += `site:groups.google.com ${combo}\n`);
+
+            const blob = new Blob([txt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${companyName.toLowerCase().replace(/\s+/g, '_')}_dorks.txt`;
+            a.click();
+        }
+
+        // Init
+        updateSpeedDisplay();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIRCOR - Google Groups DRP Scanner</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #eee;
+        }
+        h1 { color: #00d4ff; }
+        h2 { color: #ff6b6b; margin-top: 30px; }
+        .controls {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        button {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover { background: #00a8cc; }
+        .current {
+            background: #0f3460;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+        }
+        .current a {
+            color: #00d4ff;
+            font-size: 18px;
+        }
+        a {
+            color: #00d4ff;
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: #0f3460;
+            border-radius: 5px;
+        }
+        a:hover { background: #1a4a7a; }
+        a.visited-link { 
+            background: #2d4a2d; 
+            color: #90EE90;
+        }
+        .counter {
+            font-size: 24px;
+            color: #00d4ff;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 CIRCOR - Google Groups DRP Scanner</h1>
+    
+    <div class="controls">
+        <button onclick="openNext()">▶️ SONRAKİNİ AÇ</button>
+        <button onclick="resetCounter()">🔄 SIFIRLA</button>
+        <span class="counter" id="counter">0 / 43</span>
+        <div class="current" id="currentLink">Başlamak için "SONRAKİNİ AÇ" butonuna tıkla</div>
+    </div>
+
+    <h2>📦 BRAND KEYWORDS (38)</h2>
+    <div id="brands">
+        <a href="https://groups.google.com/search?q=swelore&inOrg=false" target="_blank" data-name="swelore">swelore</a>
+        <a href="https://groups.google.com/search?q=hironisha&inOrg=false" target="_blank" data-name="hironisha">hironisha</a>
+        <a href="https://groups.google.com/search?q=circoraerospace&inOrg=false" target="_blank" data-name="circoraerospace">circoraerospace</a>
+        <a href="https://groups.google.com/search?q=tushacopumps&inOrg=false" target="_blank" data-name="tushacopumps">tushacopumps</a>
+        <a href="https://groups.google.com/search?q=rtk-controls&inOrg=false" target="_blank" data-name="rtk-controls">rtk-controls</a>
+        <a href="https://groups.google.com/search?q=lesliecontrols&inOrg=false" target="_blank" data-name="lesliecontrols">lesliecontrols</a>
+        <a href="https://groups.google.com/search?q=circortech&inOrg=false" target="_blank" data-name="circortech">circortech</a>
+        <a href="https://groups.google.com/search?q=pd-technik&inOrg=false" target="_blank" data-name="pd-technik">pd-technik</a>
+        <a href="https://groups.google.com/search?q=pipelineengineering&inOrg=false" target="_blank" data-name="pipelineengineering">pipelineengineering</a>
+        <a href="https://groups.google.com/search?q=halehamilton&inOrg=false" target="_blank" data-name="halehamilton">halehamilton</a>
+        <a href="https://groups.google.com/search?q=circorselect&inOrg=false" target="_blank" data-name="circorselect">circorselect</a>
+        <a href="https://groups.google.com/search?q=circleseal&inOrg=false" target="_blank" data-name="circleseal">circleseal</a>
+        <a href="https://groups.google.com/search?q=colfaxfluidhandling&inOrg=false" target="_blank" data-name="colfaxfluidhandling">colfaxfluidhandling</a>
+        <a href="https://groups.google.com/search?q=cfx-selector&inOrg=false" target="_blank" data-name="cfx-selector">cfx-selector</a>
+        <a href="https://groups.google.com/search?q=circorpt&inOrg=false" target="_blank" data-name="circorpt">circorpt</a>
+        <a href="https://groups.google.com/search?q=zenith%20pumps&inOrg=false" target="_blank" data-name="zenith pumps">zenith pumps</a>
+        <a href="https://groups.google.com/search?q=warren%20pumps&inOrg=false" target="_blank" data-name="warren pumps">warren pumps</a>
+        <a href="https://groups.google.com/search?q=tushaco%20pumps&inOrg=false" target="_blank" data-name="tushaco pumps">tushaco pumps</a>
+        <a href="https://groups.google.com/search?q=schroedahl&inOrg=false" target="_blank" data-name="schroedahl">schroedahl</a>
+        <a href="https://groups.google.com/search?q=regeltechnik&inOrg=false" target="_blank" data-name="regeltechnik">regeltechnik</a>
+        <a href="https://groups.google.com/search?q=r.g.%20laurence&inOrg=false" target="_blank" data-name="r.g. laurence">r.g. laurence</a>
+        <a href="https://groups.google.com/search?q=portland%20valve&inOrg=false" target="_blank" data-name="portland valve">portland valve</a>
+        <a href="https://groups.google.com/search?q=leslie%20controls&inOrg=false" target="_blank" data-name="leslie controls">leslie controls</a>
+        <a href="https://groups.google.com/search?q=imo%20ab%20pump&inOrg=false" target="_blank" data-name="imo ab pump">imo ab pump</a>
+        <a href="https://groups.google.com/search?q=imo%20pump&inOrg=false" target="_blank" data-name="imo pump">imo pump</a>
+        <a href="https://groups.google.com/search?q=houttuin&inOrg=false" target="_blank" data-name="houttuin">houttuin</a>
+        <a href="https://groups.google.com/search?q=hale%20hamilton&inOrg=false" target="_blank" data-name="hale hamilton">hale hamilton</a>
+        <a href="https://groups.google.com/search?q=circor%20motors&inOrg=false" target="_blank" data-name="circor motors">circor motors</a>
+        <a href="https://groups.google.com/search?q=circor%20industria&inOrg=false" target="_blank" data-name="circor industria">circor industria</a>
+        <a href="https://groups.google.com/search?q=circor%20bodet&inOrg=false" target="_blank" data-name="circor bodet">circor bodet</a>
+        <a href="https://groups.google.com/search?q=circle%20seal%20controls&inOrg=false" target="_blank" data-name="circle seal controls">circle seal controls</a>
+        <a href="https://groups.google.com/search?q=circor%20aerospace&inOrg=false" target="_blank" data-name="circor aerospace">circor aerospace</a>
+        <a href="https://groups.google.com/search?q=allweiler&inOrg=false" target="_blank" data-name="allweiler">allweiler</a>
+        <a href="https://groups.google.com/search?q=aerodyne%20controls&inOrg=false" target="_blank" data-name="aerodyne controls">aerodyne controls</a>
+        <a href="https://groups.google.com/search?q=zenithpumps&inOrg=false" target="_blank" data-name="zenithpumps">zenithpumps</a>
+        <a href="https://groups.google.com/search?q=shopcfh&inOrg=false" target="_blank" data-name="shopcfh">shopcfh</a>
+        <a href="https://groups.google.com/search?q=progressingcavity&inOrg=false" target="_blank" data-name="progressingcavity">progressingcavity</a>
+        <a href="https://groups.google.com/search?q=circor&inOrg=false" target="_blank" data-name="circor">circor</a>
+    </div>
+
+    <h2>👤 VIP ACCOUNTS (4)</h2>
+    <div id="vips">
+        <a href="https://groups.google.com/search?q=aj.sharma%40circor.com&inOrg=false" target="_blank" data-name="aj.sharma@circor.com">aj.sharma@circor.com</a>
+        <a href="https://groups.google.com/search?q=michael.nichols%40circor.com&inOrg=false" target="_blank" data-name="michael.nichols@circor.com">michael.nichols@circor.com</a>
+        <a href="https://groups.google.com/search?q=krishna.kashyap%40circor.com&inOrg=false" target="_blank" data-name="krishna.kashyap@circor.com">krishna.kashyap@circor.com</a>
+        <a href="https://groups.google.com/search?q=tony.najjar%40circor.com&inOrg=false" target="_blank" data-name="tony.najjar@circor.com">tony.najjar@circor.com</a>
+    </div>
+
+    <h2>🌐 DOMAIN (1)</h2>
+    <div id="domains">
+        <a href="https://groups.google.com/search?q=%40circor.com&inOrg=false" target="_blank" data-name="@circor.com">@circor.com</a>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const allLinks = document.querySelectorAll('a[target="_blank"]');
+        const total = allLinks.length;
+
+        function updateCounter() {
+            document.getElementById('counter').textContent = currentIndex + ' / ' + total;
+        }
+
+        function openNext() {
+            if (currentIndex < total) {
+                const link = allLinks[currentIndex];
+                link.classList.add('visited-link');
+                window.open(link.href, '_blank');
+                document.getElementById('currentLink').innerHTML = 
+                    '✅ Açıldı: <a href="' + link.href + '" target="_blank">' + link.dataset.name + '</a>';
+                currentIndex++;
+                updateCounter();
+            } else {
+                document.getElementById('currentLink').textContent = '🎉 Tamamlandı! Tüm linkler açıldı.';
+            }
+        }
+
+        function resetCounter() {
+            currentIndex = 0;
+            updateCounter();
+            allLinks.forEach(link => link.classList.remove('visited-link'));
+            document.getElementById('currentLink').textContent = 'Sıfırlandı. "SONRAKİNİ AÇ" butonuna tıkla';
+        }
+
+        // Klavye kısayolu: Space veya Enter ile sonrakini aç
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                e.preventDefault();
+                openNext();
+            }
+        });
+
+        updateCounter();
+    </script>
+</body>
+</html>
